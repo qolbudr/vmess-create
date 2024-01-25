@@ -1,0 +1,33 @@
+name: run app.js
+
+on:
+  push:
+      branches:
+        - master
+  schedule:
+    - cron: "0 2/12 * * *"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: checkout repo content
+        uses: actions/checkout@v4 # checkout the repository content to github runner
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21' # install the python version needed
+          
+      - name: install npm packages
+        run: |
+          npm install
+          
+      - name: execute node script # run config_kharaki.py
+        run: |
+          node app.js
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "⚡ UPDATE $(date '+%Y-%m-%d %H:%M:%S')"
+          git push
