@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer-core')
 // const port = 3000
 const { randomizeUsername } = require('./utils.js')
 
-// app.get('/', async (req, res) => {
+(async () => {
     const username = randomizeUsername()
     const isProd = process.env.NODE_ENV === 'production'
 
@@ -72,6 +72,7 @@ const { randomizeUsername } = require('./utils.js')
     await browser.close();
 
     fs.writeFileSync("data.txt", result);
+})()
 // })
 
 // app.listen(port, () => {
