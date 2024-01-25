@@ -5,8 +5,6 @@ const { randomizeUsername } = require('./utils.js');
 
 (async () => {
     const username = randomizeUsername()
-    const isProd = process.env.NODE_ENV === 'production'
-
     let browser
 
     browser = await puppeteer.launch({
