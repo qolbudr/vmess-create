@@ -51,6 +51,8 @@ const { randomizeUsername } = require('./utils.js');
         return result;
     })
 
+    fs.writeFileSync("result.json", JSON.stringify(list));
+
     let dataURL;
 
     const hasSgServer = list.find((el) => el.location.includes('SG')).length > 0
