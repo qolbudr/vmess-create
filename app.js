@@ -11,7 +11,7 @@ const { randomizeUsername } = require('./utils.js');
 
     let browser
 
-    if (isProd) {
+    // if (isProd) {
         browser = await puppeteer.launch({
             args: chrome.args,
             defaultViewport: chrome.defaultViewport,
@@ -19,12 +19,12 @@ const { randomizeUsername } = require('./utils.js');
             headless: 'new',
             ignoreHTTPSErrors: true
         })
-    } else {
-        browser = await puppeteer.launch({
-            headless: false,
-            executablePath: 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
-        })
-    }
+    // } else {
+    //     browser = await puppeteer.launch({
+    //         headless: false,
+    //         executablePath: 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+    //     })
+    // }
 
     const page = await browser.newPage()
     await page.goto('https://opentunnel.net/v2ray/');
