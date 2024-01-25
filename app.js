@@ -1,8 +1,5 @@
 const chrome = require('@sparticuz/chromium');
 const puppeteer = require('puppeteer-core');
-// const express = require('express')
-// const app = express()
-// const port = 3000
 const fs = require('fs');
 const { randomizeUsername } = require('./utils.js');
 
@@ -12,20 +9,13 @@ const { randomizeUsername } = require('./utils.js');
 
     let browser
 
-    // if (isProd) {
-        browser = await puppeteer.launch({
-            args: chrome.args,
-            defaultViewport: chrome.defaultViewport,
-            executablePath: await chrome.executablePath(),
-            headless: 'new',
-            ignoreHTTPSErrors: true
-        })
-    // } else {
-    //     browser = await puppeteer.launch({
-    //         headless: false,
-    //         executablePath: 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
-    //     })
-    // }
+    browser = await puppeteer.launch({
+        args: chrome.args,
+        defaultViewport: chrome.defaultViewport,
+        executablePath: await chrome.executablePath(),
+        headless: 'new',
+        ignoreHTTPSErrors: true
+    })
 
     const page = await browser.newPage()
     await page.goto('https://opentunnel.net/v2ray/');
@@ -69,15 +59,10 @@ const { randomizeUsername } = require('./utils.js');
     await page.waitForSelector(submitSelector);
     await page.click(submitSelector);
 
-    // const resultSelector = await page.waitForSelector('#confighttp')
-    // const result = await resultSelector.evaluate((e) => e.textContent)
+    const resultSelector = await page.waitForSelector('#confighttp')
+    const result = await resultSelector.evaluate((e) => e.textContent)
 
     await browser.close();
 
-    // fs.writeFileSync("data.txt", result);
+    fs.writeFileSync("data.txt", result);
 })()
-// })
-
-// app.listen(port, () => {
-//     console.log(`Example app listening on port ${port}`)
-// })
