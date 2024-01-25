@@ -3,6 +3,7 @@ const puppeteer = require('puppeteer-core');
 // const express = require('express')
 // const app = express()
 // const port = 3000
+const fs = require('fs');
 const { randomizeUsername } = require('./utils.js');
 
 (async () => {
@@ -71,7 +72,7 @@ const { randomizeUsername } = require('./utils.js');
     // const resultSelector = await page.waitForSelector('#confighttp')
     // const result = await resultSelector.evaluate((e) => e.textContent)
 
-    // await browser.close();
+    await browser.close();
 
     // fs.writeFileSync("data.txt", result);
 })()
