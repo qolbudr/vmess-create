@@ -68,12 +68,12 @@ const { randomizeUsername } = require('./utils.js');
     await page.waitForSelector(submitSelector);
     await page.click(submitSelector);
 
-    const resultSelector = await page.waitForSelector('#confighttp')
-    const result = await resultSelector.evaluate((e) => e.textContent)
+    // const resultSelector = await page.waitForSelector('#confighttp')
+    // const result = await resultSelector.evaluate((e) => e.textContent)
 
-    await browser.close();
+    // await browser.close();
 
-    fs.writeFileSync("data.txt", result);
+    // fs.writeFileSync("data.txt", result);
 })()
 // })
 
