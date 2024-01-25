@@ -1,9 +1,9 @@
-const chrome = require('@sparticuz/chromium')
-const puppeteer = require('puppeteer-core')
+const chrome = require('@sparticuz/chromium');
+const puppeteer = require('puppeteer-core');
 // const express = require('express')
 // const app = express()
 // const port = 3000
-const { randomizeUsername } = require('./utils.js')
+const { randomizeUsername } = require('./utils.js');
 
 (async () => {
     const username = randomizeUsername()
