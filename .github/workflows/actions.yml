@@ -29,5 +29,5 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
-          git commit -m "⚡ UPDATE $(date '+%Y-%m-%d %H:%M:%S')"
+          git commit -m "⚡ UPDATE $(date -d '+7 hour' '+%Y-%m-%d %H:%M:%S')"
           git push
