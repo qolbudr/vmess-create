@@ -45,8 +45,11 @@ const { randomizeUsername } = require('./utils.js');
     let dataURL;
 
     const hasSgServer = list.find((el) => el.location.includes('SG')).length > 0
-    if (hasSgServer) dataURL = list.find((el) => el.location.includes('SG'))[0]
-    dataURL = list[Math.floor(Math.random() * list.length)]
+    if (hasSgServer) {
+        dataURL = list.find((el) => el.location.includes('SG'))[0]
+    } else {
+        dataURL = list[Math.floor(Math.random() * list.length)]
+    }
 
     await page.goto(dataURL.url);
 
