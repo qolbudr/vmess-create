@@ -85,7 +85,7 @@ puppeteer.use(StealthPlugin())
     const openclash = await resultSelector.evaluate((e) => e.textContent)
     const result = openclash.replaceAll('sni', '104.17.3.81')
 
-    fs.writeFileSync("data.yaml", result);
+    fs.writeFileSync("data.yaml", "proxies:\n" + result);
 
     await browser.close();
 })()

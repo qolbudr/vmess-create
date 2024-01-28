@@ -1,3 +1,4 @@
+proxies:
 - name: createssh.net-alarmedca Vmess WS (SNI)
   type: vmess
   server: sg1.createv2ray.com
