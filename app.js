@@ -1,69 +1,87 @@
-const chrome = require('@sparticuz/chromium');
-const puppeteer = require('puppeteer-core');
-const fs = require('fs');
-const { randomizeUsername } = require('./utils.js');
+const chrome = require('@sparticuz/chromium')
+const puppeteer = require('puppeteer-extra')
+const fs = require('fs')
+const { randomizeUsername } = require('./utils.js')
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+puppeteer.use(StealthPlugin())
 
-(async () => {
+;(async () => {
     const username = randomizeUsername()
     let browser
 
-    browser = await puppeteer.launch({
-        args: chrome.args,
-        defaultViewport: chrome.defaultViewport,
-        executablePath: await chrome.executablePath(),
-        headless: 'new',
-        ignoreHTTPSErrors: true
-    })
+    const isDev = true
 
-    const page = await browser.newPage()
-    await page.goto('https://opentunnel.net/v2ray/');
-
-    const list = await page.evaluate((e) => {
-        const baseURL = 'https://opentunnel.net'
-
-        const result = [];
-        const element = document.querySelectorAll('.card.h-100.text-muted');
-
-        element.forEach((item) => {
-            const isAvailable = item.querySelector('[role=button]').classList.contains('btn-primary');
-            const url = item.querySelector('[role=button]').getAttribute('href');
-
-            if (isAvailable) {
-                result.push({
-                    'location': item.querySelector('.fw-bold').textContent,
-                    'url': `${baseURL}${url}`
-                })
-            }
-
+    if (isDev) {
+        browser = await puppeteer.launch({
+            args: chrome.args,
+            defaultViewport: chrome.defaultViewport,
+            executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+            headless: false,
+            ignoreHTTPSErrors: true,
+            args: ['--disable-features=site-per-process']
         })
 
-        return result;
-    })
-
-    fs.writeFileSync("result.json", JSON.stringify(list));
-
-    let dataURL;
-
-    const hasSgServer = list.find((el) => el.location.includes('SG')).length > 0
-    if (hasSgServer) {
-        dataURL = list.find((el) => el.location.includes('SG'))[0]
     } else {
-        dataURL = list[Math.floor(Math.random() * list.length)]
+        browser = await puppeteer.launch({
+            args: chrome.args,
+            defaultViewport: chrome.defaultViewport,
+            executablePath: await chrome.executablePath(),
+            headless: 'new',
+            ignoreHTTPSErrors: true
+        })
     }
 
-    await page.goto(dataURL.url);
+    let serverURL;
 
-    await page.type('#username', username);
-    await page.type('#bh', 'www.skillacademy.com');
+    const page = await browser.newPage();
+
+    for(let i = 1; i <= 4; i++) {
+        await page.goto('https://createssh.net/vmess-websocket/singapore?page=' + i)
+
+        const list = await page.evaluate((e) => {
+            let result = [];
+
+            const element = document.querySelectorAll('.card.pricing');
+            element.forEach((item) => {
+                const isOnline = item.querySelector('.status').classList.contains('status-green');
+                const isAvailable = item.querySelector('[role=button]').classList.contains('btn-primary');
+                const href = item.querySelector('[role=button]').getAttribute('href');
+
+                if(isOnline && isAvailable) {
+                    result.push(href);
+                }
+            })
+
+            return result;
+        })
+
+        if(list.length > 0) {
+            serverURL = list;
+            break;
+        }
+    }
+
+    await page.goto(serverURL[0]);
+
+    await page.type('#username', username.substring(0, 9));
+    await page.evaluate( () => document.getElementById("sni").value = "")
+    await page.type('#sni', 'www.skillacademy.com');
+
+    await page.click('#term');
+
+    await new Promise(r => setTimeout(r, 10000));
 
     const submitSelector = '.subb';
     await page.waitForSelector(submitSelector);
     await page.click(submitSelector);
 
-    const resultSelector = await page.waitForSelector('#confighttp')
-    const result = await resultSelector.evaluate((e) => e.textContent)
+    await new Promise(r => setTimeout(r, 30000));
+
+    const resultSelector = await page.waitForSelector('#openclass')
+    const openclash = await resultSelector.evaluate((e) => e.textContent)
+
+
+    fs.writeFileSync("data.yaml", openclash);
 
     await browser.close();
-
-    fs.writeFileSync("data.txt", result);
 })()
