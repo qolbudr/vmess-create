@@ -9,7 +9,7 @@ puppeteer.use(StealthPlugin())
     const username = randomizeUsername()
     let browser
 
-    const isDev = true
+    const isDev = false
 
     if (isDev) {
         browser = await puppeteer.launch({
@@ -61,7 +61,7 @@ puppeteer.use(StealthPlugin())
         }
     }
 
-    await page.goto(serverURL[1]);
+    await page.goto(serverURL[0]);
 
     await page.type('#username', username.substring(0, 9));
     await page.evaluate( () => document.getElementById("sni").value = "")
