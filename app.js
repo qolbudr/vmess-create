@@ -9,7 +9,7 @@ puppeteer.use(StealthPlugin())
     const username = randomizeUsername()
     let browser
 
-    const isDev = false
+    const isDev = true
 
     if (isDev) {
         browser = await puppeteer.launch({
@@ -61,7 +61,7 @@ puppeteer.use(StealthPlugin())
         }
     }
 
-    await page.goto(serverURL[0]);
+    await page.goto(serverURL[1]);
 
     await page.type('#username', username.substring(0, 9));
     await page.evaluate( () => document.getElementById("sni").value = "")
@@ -75,13 +75,17 @@ puppeteer.use(StealthPlugin())
     await page.waitForSelector(submitSelector);
     await page.click(submitSelector);
 
-    await new Promise(r => setTimeout(r, 30000));
+    await new Promise(r => setTimeout(r, 10000));
+
+    await page.waitForSelector('.swal2-confirm')
+
+    await page.click('.swal2-confirm')
 
     const resultSelector = await page.waitForSelector('#openclass')
     const openclash = await resultSelector.evaluate((e) => e.textContent)
+    const result = openclash.replaceAll('sni', '104.17.3.81')
 
-
-    fs.writeFileSync("data.yaml", openclash);
+    fs.writeFileSync("data.yaml", result);
 
     await browser.close();
 })()
