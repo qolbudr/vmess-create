@@ -1,9 +1,9 @@
 proxies:
-- name: createssh.net-agileanim Vmess WS (SNI)
+- name: createssh.net-advanceda Vmess WS (SNI)
   type: vmess
-  server: sg3.createv2ray.com
+  server: sg2.createv2ray.com
   port: 443
-  uuid: 6b42b355-8581-4f98-bb99-ff10703934ad
+  uuid: 4dee1d29-c53b-46dd-bafa-79a0d9b9bbb8
   alterId: 0
   cipher: auto
   udp: true
@@ -16,36 +16,36 @@ proxies:
     headers:
       Host: 104.17.3.81
 
-- name: createssh.net-agileanim Vmess WS (CDN)
+- name: createssh.net-advanceda Vmess WS (CDN)
   type: vmess
   server: 104.17.3.81
   port: 443
-  uuid: 6b42b355-8581-4f98-bb99-ff10703934ad
+  uuid: 4dee1d29-c53b-46dd-bafa-79a0d9b9bbb8
   alterId: 0
   cipher: auto
   udp: true
   tls: true
   skip-cert-verify: true
-  servername: sg3.createv2ray.com
+  servername: sg2.createv2ray.com
   network: ws
   ws-opts:
     path: /vmess
     headers:
-      Host: sg3.createv2ray.com
+      Host: sg2.createv2ray.com
 
-- name: createssh.net-agileanim Vmess WS (CDN) Non TLS
+- name: createssh.net-advanceda Vmess WS (CDN) Non TLS
   type: vmess
   server: 104.17.3.81
   port: 80
-  uuid: 6b42b355-8581-4f98-bb99-ff10703934ad
+  uuid: 4dee1d29-c53b-46dd-bafa-79a0d9b9bbb8
   alterId: 0
   cipher: auto
   udp: true
   tls: false
   skip-cert-verify: false
-  servername: sg3.createv2ray.com
+  servername: sg2.createv2ray.com
   network: ws
   ws-opts:
     path: /vmess
     headers:
-      Host: sg3.createv2ray.com
+      Host: sg2.createv2ray.com
