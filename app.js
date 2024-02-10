@@ -41,10 +41,10 @@ puppeteer.use(StealthPlugin())
         const list = await page.evaluate((e) => {
             let result = [];
 
-            const element = document.querySelectorAll('.card.pricing');
+            const element = document.querySelectorAll('.col-md-6.col-lg-4');
             element.forEach((item) => {
                 const isOnline = item.querySelector('.status').classList.contains('status-green');
-                const isAvailable = item.querySelector('[role=button]').classList.contains('btn-primary');
+                const isAvailable = item.querySelector('[role=button]').classList.contains('btn-blue');
                 const href = item.querySelector('[role=button]').getAttribute('href');
 
                 if(isOnline && isAvailable) {
