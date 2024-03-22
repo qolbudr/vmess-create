@@ -9,7 +9,7 @@ puppeteer.use(StealthPlugin())
     const username = randomizeUsername()
     let browser
 
-    const isDev = true
+    const isDev = false
 
     if (isDev) {
         browser = await puppeteer.launch({
