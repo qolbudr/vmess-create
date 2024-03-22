@@ -9,13 +9,13 @@ puppeteer.use(StealthPlugin())
     const username = randomizeUsername()
     let browser
 
-    const isDev = false
+    const isDev = true
 
     if (isDev) {
         browser = await puppeteer.launch({
             args: chrome.args,
             defaultViewport: chrome.defaultViewport,
-            executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+            executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
             headless: false,
             ignoreHTTPSErrors: true,
             args: ['--disable-features=site-per-process']
@@ -41,10 +41,10 @@ puppeteer.use(StealthPlugin())
         const list = await page.evaluate((e) => {
             let result = [];
 
-            const element = document.querySelectorAll('.col-md-6.col-lg-4');
+            const element = document.querySelectorAll('.features .card');
             element.forEach((item) => {
                 const isOnline = item.querySelector('.status').classList.contains('status-green');
-                const isAvailable = item.querySelector('[role=button]').classList.contains('btn-blue');
+                const isAvailable = item.querySelector('[role=button]').classList.contains('btn-primary');
                 const href = item.querySelector('[role=button]').getAttribute('href');
 
                 if(isOnline && isAvailable) {
