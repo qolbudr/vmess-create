@@ -1,9 +1,9 @@
 proxies:
-- name: createssh.net-agonizing Vmess WS (SNI)
+- name: createssh.net-ashamedch Vmess WS (SNI)
   type: vmess
   server: sg2.createv2ray.com
   port: 443
-  uuid: 70ce2b2c-51c2-4267-b37d-8420f015fb6c
+  uuid: 5b980a15-8bd0-45a2-9b85-6eae542f783b
   alterId: 0
   cipher: auto
   udp: true
@@ -16,11 +16,11 @@ proxies:
     headers:
       Host: 104.17.3.81
 
-- name: createssh.net-agonizing Vmess WS (CDN)
+- name: createssh.net-ashamedch Vmess WS (CDN)
   type: vmess
   server: 104.17.3.81
   port: 443
-  uuid: 70ce2b2c-51c2-4267-b37d-8420f015fb6c
+  uuid: 5b980a15-8bd0-45a2-9b85-6eae542f783b
   alterId: 0
   cipher: auto
   udp: true
@@ -33,11 +33,11 @@ proxies:
     headers:
       Host: sg2.createv2ray.com
 
-- name: createssh.net-agonizing Vmess WS (CDN) Non TLS
+- name: createssh.net-ashamedch Vmess WS (CDN) Non TLS
   type: vmess
   server: 104.17.3.81
   port: 80
-  uuid: 70ce2b2c-51c2-4267-b37d-8420f015fb6c
+  uuid: 5b980a15-8bd0-45a2-9b85-6eae542f783b
   alterId: 0
   cipher: auto
   udp: true
